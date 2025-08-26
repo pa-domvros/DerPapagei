@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson: Ich habe einen kleinen Papagei</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* Light blue sky background */
+        }
+        h1, h2, h3 {
+            font-family: 'Fredoka One', cursive;
+            color: #1e40af; /* Deep blue */
+        }
+        .lesson-section {
+            background-color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1300px; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 2px solid #60a5fa; /* A friendly blue border */
+        }
+        .content-wrapper {
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background-color: #3b82f6; /* Blue */
+        }
+        .btn-primary:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background-color: #f97316; /* Orange */
+        }
+        .btn-secondary:hover {
+            background-color: #ea580c;
+            transform: translateY(-2px);
+        }
+        .vocab-card {
+            background-color: #fffbeb;
+            border: 2px dashed #facc15;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .vocab-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(250, 204, 21, 0.5);
+        }
+        .vocab-card .german, .vocab-card .english {
+            transition: opacity 0.3s ease;
+        }
+        .video-container video {
+            width: 100%;
+            border-radius: 15px;
+        }
+        .lyrics-column {
+            background-color: #eff6ff;
+            padding: 1.5rem;
+            border-radius: 15px;
+        }
+        .lyrics-english {
+            display: none;
+            color: #374151;
+            font-style: italic;
+        }
+        /* UPDATED: Game card layout styles */
+        .game-card {
+            background-color: #f3f4f6;
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 2rem;
+        }
+        .game-card-image-container {
+            width: 50%;
+            flex-shrink: 0;
+        }
+        .game-card-content {
+            width: 50%;
+            text-align: left;
+        }
+        .game-card img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+            border-radius: 10px;
+            background-color: #e5e7eb;
+        }
+        .game-answer {
+            display: none;
+            margin-top: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #16a34a; /* Green */
+        }
+        .teacher-prompt {
+            background-color: #fefce8;
+            border: 2px dashed #eab308;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="text-center p-8 bg-blue-500 text-white">
+        <h1 class="text-5xl md:text-6xl">Ich habe einen kleinen Papagei!</h1>
+        <p class="text-xl mt-2">Created by Panagiotis Domvros, English and Drama Teacher</p>
+    </header>
+
+    <main class="container mx-auto px-4">
+
+        <!-- Section 1: Warm-up -->
+        <section id="warmup" class="lesson-section text-center">
+            <div class="content-wrapper">
+                <h2 class="text-4xl mb-6">Warm-up: Guess the Animal!</h2>
+                <p class="text-xl mb-4">Let's start with a big German greeting...</p>
+                <h3 class="text-6xl text-yellow-500 mb-8 animate-bounce">Hallo!</h3>
+                <p class="text-xl mb-6">What kind of animal can talk and makes a lot of noise?</p>
+                <div id="animal-reveal" class="text-6xl mb-6" style="display: none;">🦜</div>
+                <div id="word-reveal" class="text-4xl font-bold text-green-600 mb-6" style="display: none;">Der Papagei</div>
+                <button class="btn btn-primary" onclick="revealAnimal()">Reveal Animal</button>
+                <button class="btn btn-secondary" onclick="revealWord()" style="display: none;">Reveal German Word</button>
+            </div>
+        </section>
+        
+        <!-- Section 2: Kids Video -->
+        <section id="videos" class="lesson-section text-center">
+            <div class="content-wrapper">
+                <h2 class="text-4xl mb-6">Watch & Listen: The Kids' Video!</h2>
+                <p class="text-xl mb-6">Let's watch the video. What does the parrot do?</p>
+                <div class="video-container">
+                    <video controls>
+                        <source src="🏞️ Ich habe einen kleinen Papagei  - Partylieder zum Mitsingen __ Kinderlieder.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Comprehension Game -->
+        <section id="comprehension" class="lesson-section">
+            <h2 class="text-4xl text-center mb-8">Comprehension Game</h2>
+            <!-- UPDATED: Single column grid for wide, stylish cards -->
+            <div class="grid grid-cols-1 gap-8">
+                <div class="game-card">
+                    <div class="game-card-image-container">
+                        <img src="papagei 4.png" alt="Parrot with police">
+                    </div>
+                    <div class="game-card-content">
+                        <p class="text-2xl mb-4">Wo ist der Papagei hier?</p>
+                        <button class="btn btn-primary" onclick="showGameAnswer('answer-polizei')">Reveal Answer</button>
+                        <div id="answer-polizei" class="game-answer">Bei der Polizei!</div>
+                        <div class="teacher-prompt">
+                            <h3 class="font-bold text-yellow-700">Let's discuss in English:</h3>
+                            <ul class="list-disc list-inside mt-2">
+                                <li>Why do you think the parrot is with the police?</li>
+                                <li>Does the policeman look happy or surprised?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-card-image-container">
+                        <img src="papagei 5.png" alt="Parrot in a bakery">
+                    </div>
+                    <div class="game-card-content">
+                        <p class="text-2xl mb-4">Und was macht er hier?</p>
+                        <button class="btn btn-primary" onclick="showGameAnswer('answer-baeckerei')">Reveal Answer</button>
+                        <div id="answer-baeckerei" class="game-answer">In der Bäckerei!</div>
+                         <div class="teacher-prompt">
+                            <h3 class="font-bold text-yellow-700">Let's discuss in English:</h3>
+                            <ul class="list-disc list-inside mt-2">
+                                <li>Is the parrot being naughty or just hungry?</li>
+                                <li>What's your favorite food from a bakery?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                 <div class="game-card">
+                    <div class="game-card-image-container">
+                        <img src="papagei 2.png" alt="Parrot in an office">
+                    </div>
+                    <div class="game-card-content">
+                        <p class="text-2xl mb-4">Wo sagt der Papagei "Hallo"?</p>
+                        <button class="btn btn-primary" onclick="showGameAnswer('answer-buero')">Reveal Answer</button>
+                        <div id="answer-buero" class="game-answer">Im Büro!</div>
+                         <div class="teacher-prompt">
+                            <h3 class="font-bold text-yellow-700">Let's discuss in English:</h3>
+                            <ul class="list-disc list-inside mt-2">
+                                <li>Whose office do you think this is?</li>
+                                <li>Should parrots be in an office? Why or why not?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-card">
+                    <div class="game-card-image-container">
+                        <img src="papagei 3.png" alt="Parrot on the street">
+                    </div>
+                    <div class="game-card-content">
+                        <p class="text-2xl mb-4">...und wo noch?</p>
+                        <button class="btn btn-primary" onclick="showGameAnswer('answer-strasse')">Reveal Answer</button>
+                        <div id="answer-strasse" class="game-answer">Auf der Straße!</div>
+                         <div class="teacher-prompt">
+                            <h3 class="font-bold text-yellow-700">Let's discuss in English:</h3>
+                            <ul class="list-disc list-inside mt-2">
+                                <li>Is the street a safe place for a parrot?</li>
+                                <li>What kind of things might a parrot see on a street?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Vocabulary -->
+        <section id="vocabulary" class="lesson-section">
+            <h2 class="text-4xl text-center mb-8">Papagei's Words</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="vocab-card" onclick="toggleCard(this)"><div class="german">Papagei</div><div class="english" style="display:none;">🦜<br>Parrot</div></div>
+                <div class="vocab-card" onclick="toggleCard(this)"><div class="german">Geschrei</div><div class="english" style="display:none;">😱<br>Shouting</div></div>
+                <div class="vocab-card" onclick="toggleCard(this)"><div class="german">Schnabel</div><div class="english" style="display:none;">👄<br>Beak</div></div>
+                <div class="vocab-card" onclick="toggleCard(this)"><div class="german">Polizei</div><div class="english" style="display:none;">👮<br>Police</div></div>
+                <div class="vocab-card" onclick="toggleCard(this)"><div class="german">Bäckerei</div><div class="english" style="display:none;">🥐<br>Bakery</div></div>
+                <div class="vocab-card" onclick="toggleCard(this)"><div class="german">Morgens früh</div><div class="english" style="display:none;">🌅<br>Early morning</div></div>
+                <div class="vocab-card" onclick="toggleCard(this)"><div class="german">Abends spät</div><div class="english" style="display:none;">🌃<br>Late evening</div></div>
+                <div class="vocab-card" onclick="toggleCard(this)"><div class="german">Ohren zu</div><div class="english" style="display:none;">🙉<br>Close ears</div></div>
+            </div>
+        </section>
+
+        <!-- Section 5: Lyrics -->
+        <section id="lyrics" class="lesson-section">
+            <h2 class="text-4xl text-center mb-6">Let's Learn the Song!</h2>
+            <div class="text-center mb-6">
+                <button class="btn btn-primary" onclick="toggleTranslation()">Toggle Translation</button>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 text-lg">
+                <div class="lyrics-column">
+                    <h3 class="text-2xl mb-4 text-center">German Lyrics</h3>
+                    <p>Ich habe einen kleinen Papagei (Papagei)<br>
+                    Der macht den ganzen Tag ganz viel Geschrei (viel Geschrei)<br>
+                    Sein großer Schnabel der steht niemals still (niemals still)<br>
+                    Er macht immer das nur was er will (was er will)</p>
+                    <p class="mt-4"><strong>Refrain:<br>Sagt Hallo, co-co-co<br>
+                    Einfach so, co-co-co<br>
+                    Im Büro, co-co-co<br>
+                    Auf der Straße sowieso<br>
+                    Morgens früh, co-co-co<br>
+                    Abends spät, co-co-co<br>
+                    Ganz verschärft, co-co-co<br>
+                    Mann, das nervt, co-co-co</strong></p>
+                    <p class="mt-4">Mein kleiner, süßer, frecher Papagei (Papagei)<br>
+                    Der flog auch einmal hin zur Polizei (Polizei)<br>
+                    Der Polizist, der schrieb ein Protokoll (Protokoll)<br>
+                    Das fand der Papagei dann gar nicht toll (gar nicht toll)</p>
+                    <p class="mt-4">Zum Fressen fliegt der kleine Papagei (Papagei)<br>
+                    Am liebsten in die feine Bäckerei (Bäckerei)<br>
+                    Für manchen dort ist er 'ne Attraktion (Attraktion)<br>
+                    Der Bäcker dort, der kennt das aber schon (aber schon)</p>
+                </div>
+                <div class="lyrics-column lyrics-english">
+                    <h3 class="text-2xl mb-4 text-center">English Translation</h3>
+                    <p>I have a little parrot (parrot)<br>
+                    It makes a lot of noise all day long (a lot of noise)<br>
+                    Its big beak never stands still (never still)<br>
+                    It always does just what it wants (what it wants)</p>
+                    <p class="mt-4"><strong>Chorus:<br>Says hello, co-co-co<br>
+                    Just like that, co-co-co<br>
+                    In the office, co-co-co<br>
+                    On the street anyway<br>
+                    Early in the morning, co-co-co<br>
+                    Late in the evening, co-co-co<br>
+                    Totally crazy, co-co-co<br>
+                    Man, that's annoying, co-co-co</strong></p>
+                    <p class="mt-4">My little, sweet, cheeky parrot (parrot)<br>
+                    It once flew to the police (police)<br>
+                    The policeman wrote a report (report)<br>
+                    The parrot didn't think that was great at all (not great at all)</p>
+                    <p class="mt-4">To eat, the little parrot flies (parrot)<br>
+                    Preferably to the fine bakery (bakery)<br>
+                    For some there it is an attraction (attraction)<br>
+                    The baker there already knows that (already knows)</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 6: Teens Video -->
+        <section id="videos-teens" class="lesson-section text-center">
+             <div class="content-wrapper">
+                <h2 class="text-4xl mb-6">Bonus Video: The Modern Papagei!</h2>
+                <p class="text-xl mb-6">Let's watch the modern version for fun!</p>
+                <div class="video-container">
+                    <video controls>
+                        <source src="Die Schlagerboys.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Cool Down -->
+        <section id="cooldown" class="lesson-section text-center">
+            <div class="content-wrapper">
+                <h2 class="text-4xl mb-6">Cool Down: What does the parrot do?</h2>
+                <p class="text-xl mb-6">Was macht der Papagei?</p>
+                <div id="cooldown-answers" class="space-y-4"></div>
+                <div class="mt-6 space-x-4">
+                    <button class="btn btn-primary" onclick="showAnswer(0)">Macht...?</button>
+                    <button class="btn btn-primary" onclick="showAnswer(1)">Fliegt...?</button>
+                    <button class="btn btn-primary" onclick="showAnswer(2)">Sagt...?</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-6 mt-8 text-gray-500">
+        <p>✨✍️ Created by Panagiotis Domvros, English and Drama Teacher, All Rights Reserved ✍️✨</p>
+    </footer>
+
+    <script>
+        // --- Warm-up Script ---
+        function revealAnimal() {
+            document.getElementById('animal-reveal').style.display = 'block';
+            document.querySelector('#warmup button.btn-primary').style.display = 'none';
+            document.querySelector('#warmup button.btn-secondary').style.display = 'inline-block';
+        }
+        function revealWord() {
+            document.getElementById('word-reveal').style.display = 'block';
+            document.querySelector('#warmup button.btn-secondary').style.display = 'none';
+        }
+
+        // --- Comprehension Game Script ---
+        function showGameAnswer(answerId) {
+            const answerEl = document.getElementById(answerId);
+            if (answerEl) {
+                answerEl.style.display = 'block';
+            }
+        }
+
+        // --- Vocabulary Card Script ---
+        function toggleCard(cardElement) {
+            const german = cardElement.querySelector('.german');
+            const english = cardElement.querySelector('.english');
+            if (window.getComputedStyle(english).display === 'none') {
+                english.style.display = 'block';
+                german.style.display = 'none';
+            } else {
+                english.style.display = 'none';
+                german.style.display = 'block';
+            }
+        }
+
+        // --- Lyrics Script ---
+        function toggleTranslation() {
+            document.querySelectorAll('.lyrics-english').forEach(el => {
+                if (el.style.display === 'block') {
+                    el.style.display = 'none';
+                } else {
+                    el.style.display = 'block';
+                }
+            });
+        }
+        
+        // --- Cool Down Script ---
+        const answers = [
+            "Macht viel Geschrei! (Makes a lot of noise!)",
+            "Fliegt zur Polizei und Bäckerei! (Flies to the police and bakery!)",
+            "Sagt Hallo! (Says Hello!)"
+        ];
+        const answersContainer = document.getElementById('cooldown-answers');
+        function showAnswer(index) {
+             if (!document.getElementById(`answer-${index}`)) {
+                const p = document.createElement('p');
+                p.id = `answer-${index}`;
+                p.className = 'text-2xl p-4 bg-green-100 text-green-800 rounded-lg';
+                p.textContent = answers[index];
+                answersContainer.appendChild(p);
+             }
+        }
+    </script>
+</body>
+</html>
